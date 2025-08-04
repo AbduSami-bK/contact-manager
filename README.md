@@ -2,6 +2,68 @@
 
 A comprehensive contact management system with desktop application and browser extensions for Chrome/Chromium and Firefox.
 
+## 2. Requirements List
+
+### General Description
+
+A privacy-respecting contact manager system that consists of:
+
+* A **browser extension** that detects contact info from pages the user visits
+* A **desktop application** that reads/writes to a local SQLite DB
+* No cloud. No background scraping. No storing of passwords or messages. Only structured contact information that the user consents to collect.
+
+---
+
+### Dev Spec
+
+A Contact management system with two major components:
+
+### 1. Browser Extension (Firefox and Chrome)
+
+* Detects contact information (name, phone, email, address, company, title, etc.) on webpages the user manually visits
+* Shows a popup asking the user if they want to save detected contact info
+* If confirmed, stores that info in a **local SQLite DB** (the DB file path is configured in extension settings)
+* Optional: User can allow auto-save on trusted sites (like Gmail, LinkedIn, GitHub, etc.)
+* No scraping, no background execution, no data sent to cloud — only on-screen visible data
+
+### 2. Desktop App (Electron or Python + GUI)
+
+* Connects to the same SQLite DB
+* Allows user to search/filter/sort contacts
+* Allows user to import/export contact info (.vcf, .csv etc)
+* Allows user to manually edit contact details
+* Allows user to select two or more contacts to link (/ unlink) from multiple sources into a unified 'same person'.
+* Can pull contacts using standard APIs from Gmail, Outlook, etc. if user logs in via OAuth
+* Provides a “Search on platform” button that opens Facebook/LinkedIn/Google with a pre-filled search query
+
+### Data Model
+
+Contact: (Not exhaustive)
+
+* `display picture`
+* `full_name`
+* `email`
+* `phone_numbers` (list)
+* `profile / portfolio links` (list)
+* `location`
+  * `home`
+  * `work`
+* `job_title`
+* `company`
+* `tags` (e.g., friend, colleague, etc.)
+* `source_url`
+* `date_saved`
+* `notes`
+* `link_id` (for linking same-person contacts)
+
+### Tech Stack
+
+* Browser Extension: JS/TS + Manifest v3 + IndexedDB/SQLite via Native Messaging
+* Desktop App: Python (PySide, tkinter) or Electron (JS) — you choose what integrates better
+* Storage: SQLite with simple schema
+* Optional: Sync config using `~/.config/contact-manager/config.json`
+
+
 ## Contributors
 
 **Major Contributors:**
@@ -13,8 +75,6 @@ A comprehensive contact management system with desktop application and browser e
   - Implemented contact extraction and web integration features
   - Created comprehensive validation and utility systems
   - Designed responsive layouts and cross-platform compatibility
-
-## Features
 
 ## Features
 
@@ -229,13 +289,12 @@ For issues and questions:
 
 ## Roadmap
 
-- [ ] Cloud synchronization
 - [ ] Contact groups and categories
 - [ ] Advanced search filters
-- [ ] Contact sharing
+- [ ] Local contact sharing (file-based)
 - [ ] Mobile applications
-- [ ] API integration
-- [ ] Backup and restore
+- [ ] Offline backup and restore
 - [ ] Contact templates
 - [ ] Birthday reminders
 - [ ] Contact history tracking
+- [ ] Offline-first improvements
