@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="popup.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="popup-container">
+        <!-- Header -->
+        <header class="popup-header">
+            <h1><i class="fas fa-address-book"></i> Contacts</h1>
+            <button id="addContactBtn" class="btn btn-primary" title="Add New Contact">
+                <i class="fas fa-plus"></i>
+            </button>
+        </header>
+
+        <!-- Search -->
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search contacts...">
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-value" id="totalContacts">0</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="favoriteContacts">0</span>
+                <span class="stat-label">Favorites</span>
+            </div>
+        </div>
+
+        <!-- Contact List -->
+        <div class="contact-list-container">
+            <div id="contactList" class="contact-list">
+                <!-- Contacts will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <footer class="popup-footer">
+            <button id="importBtn" class="btn btn-secondary" title="Import Contacts">
+                <i class="fas fa-download"></i>
+            </button>
+            <button id="exportBtn" class="btn btn-secondary" title="Export Contacts">
+                <i class="fas fa-upload"></i>
+            </button>
+            <button id="openFullBtn" class="btn btn-primary" title="Open Full View">
+                <i class="fas fa-external-link-alt"></i>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Add/Edit Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Contact</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input type="text" id="tags" name="tags" placeholder="work, friend, family">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" rows="2" placeholder="Additional notes..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" id="saveBtn" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Import Contacts</h2>
+                <button class="close-btn" id="closeImportModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Paste your JSON contact data below:</p>
+                <textarea id="importData" rows="10" placeholder='[{"firstName":"John","lastName":"Doe","email":"john@example.com","phone":"123-456-7890"}]'></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelImportBtn" class="btn btn-secondary">Cancel</button>
+                <button id="confirmImportBtn" class="btn btn-primary">Import</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "name": "contact-manager-desktop",
+  "version": "1.0.0",
+  "description": "Desktop contact manager application",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": ["contact", "manager", "desktop", "electron"],
+  "author": "Contact Manager Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.6.4",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.8.0"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  },
+  "build": {
+    "appId": "com.contactmanager.desktop",
+    "productName": "Contact Manager",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "app/**/*",
+      "ui/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "resources/icon.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Utility"
+    }
+  }
+}

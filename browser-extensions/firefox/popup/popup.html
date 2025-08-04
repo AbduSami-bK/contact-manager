@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="popup.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="popup-container">
+        <header class="popup-header">
+            <h1><i class="fas fa-address-book"></i> Contact Manager</h1>
+            <button id="openFullView" class="btn-secondary" title="Open Full View">
+                <i class="fas fa-external-link-alt"></i>
+            </button>
+        </header>
+
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search contacts..." />
+                <button id="clearSearch" class="clear-btn" style="display: none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number" id="totalContacts">0</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="favoriteContacts">0</span>
+                <span class="stat-label">Favorites</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="recentContacts">0</span>
+                <span class="stat-label">Recent</span>
+            </div>
+        </div>
+
+        <div class="contact-list-container">
+            <div class="contact-list-header">
+                <h3>Contacts</h3>
+                <button id="addContactBtn" class="btn-primary">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+            </div>
+            <div id="contactList" class="contact-list">
+                <!-- Contacts will be populated here -->
+            </div>
+            <div id="noContacts" class="no-contacts" style="display: none;">
+                <i class="fas fa-user-plus"></i>
+                <p>No contacts found</p>
+                <button id="addFirstContact" class="btn-primary">Add Your First Contact</button>
+            </div>
+        </div>
+
+        <footer class="popup-footer">
+            <button id="importBtn" class="btn-secondary" title="Import Contacts">
+                <i class="fas fa-download"></i>
+            </button>
+            <button id="exportBtn" class="btn-secondary" title="Export Contacts">
+                <i class="fas fa-upload"></i>
+            </button>
+            <button id="settingsBtn" class="btn-secondary" title="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Contact</h2>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company" />
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" id="jobTitle" name="jobTitle" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <div class="address-fields">
+                        <input type="text" id="street" name="street" placeholder="Street" />
+                        <div class="address-row">
+                            <input type="text" id="city" name="city" placeholder="City" />
+                            <input type="text" id="state" name="state" placeholder="State" />
+                            <input type="text" id="zipCode" name="zipCode" placeholder="ZIP Code" />
+                        </div>
+                        <input type="text" id="country" name="country" placeholder="Country" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input type="text" id="tags" name="tags" placeholder="work, friend, family (comma separated)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Additional notes..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+                    <button type="submit" id="saveBtn" class="btn-primary">Save Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Import Contacts</h2>
+                <button class="close-btn" id="closeImportModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="import-content">
+                <p>Paste your JSON contact data below:</p>
+                <textarea id="importData" placeholder='[{"firstName":"John","lastName":"Doe","email":"john@example.com",...}]' rows="10"></textarea>
+                <div class="form-actions">
+                    <button type="button" id="cancelImportBtn" class="btn-secondary">Cancel</button>
+                    <button type="button" id="importDataBtn" class="btn-primary">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

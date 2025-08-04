@@ -1,0 +1,110 @@
+/* Firefox Contact Manager Content Script Styles */
+
+/* Contact extraction button styles */
+.contact-manager-extract-btn {
+  position: absolute !important;
+  right: 5px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 3px !important;
+  padding: 4px 8px !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  opacity: 0 !important;
+  transition: opacity 0.2s ease !important;
+  z-index: 1000 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+}
+
+.contact-manager-extract-btn:hover {
+  opacity: 1 !important;
+  transform: translateY(-50%) scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+}
+
+.contact-manager-extract-btn:active {
+  transform: translateY(-50%) scale(0.95) !important;
+}
+
+/* Notification styles */
+.contact-manager-notification {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  background: white !important;
+  color: #333 !important;
+  padding: 12px 16px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  z-index: 10000 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  max-width: 300px !important;
+  animation: contactManagerSlideIn 0.3s ease-out !important;
+  border-left: 4px solid #667eea !important;
+}
+
+.contact-manager-notification.success {
+  border-left-color: #28a745 !important;
+  background: #d4edda !important;
+  color: #155724 !important;
+}
+
+.contact-manager-notification.error {
+  border-left-color: #dc3545 !important;
+  background: #f8d7da !important;
+  color: #721c24 !important;
+}
+
+.contact-manager-notification.info {
+  border-left-color: #17a2b8 !important;
+  background: #d1ecf1 !important;
+  color: #0c5460 !important;
+}
+
+/* Animation keyframes */
+@keyframes contactManagerSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Ensure input containers are positioned relatively */
+input[type="email"],
+input[name*="email"],
+input[id*="email"] {
+  position: relative !important;
+}
+
+/* Style adjustments for common email input containers */
+.form-group,
+.input-group,
+.field-container {
+  position: relative !important;
+}
+
+/* Hide extraction button on mobile devices */
+@media (max-width: 768px) {
+  .contact-manager-extract-btn {
+    display: none !important;
+  }
+}
+
+/* Ensure proper stacking context */
+.contact-manager-extract-btn {
+  pointer-events: auto !important;
+}
+
+/* Prevent conflicts with existing styles */
+.contact-manager-extract-btn * {
+  pointer-events: none !important;
+}
